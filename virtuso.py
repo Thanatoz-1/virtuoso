@@ -1,4 +1,5 @@
 from argparse import ArgumentParser
+import os
 
 def Parser():
     '''
@@ -37,5 +38,10 @@ if __name__=='__main__':
     # Reading templates 
     with open(textPath, 'r') as f:
         textData = f.readlines()
-    
-    
+    mode='a' if os.path.exists(savePath) else 'w'
+    header='data'
+    count=0
+    with open(savePath, mode) as out:
+        for line in textData:
+            token = line.split()
+            
