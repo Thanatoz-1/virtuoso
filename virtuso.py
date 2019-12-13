@@ -1,7 +1,27 @@
 from argparse import ArgumentParser
 import os
+from collections import defaultdict
+import random
 
-def Parser():
+class DataFetcher:
+    def __init__(self):
+        BASE='Data/'
+        self.tables=os.listdir(BASE)
+        self._data = defaultdict(list)
+        for file in self.items:
+            if '.txt' in file:
+                with open(os.path.join(BASE,file),'r') as f:
+                    self.__data[file] = f.readlines()
+
+        def getItem(self, filename):
+            return random.choice(self.__data[filename])
+
+def StringParser():
+    def __init__(self):
+        pass
+
+
+def ArgParser():
     '''
     This is the function to parse your arguments into a more understable form and 
     provide relavant help whenever needed.
@@ -33,7 +53,7 @@ def Parser():
     return textPath, savePath
 
 if __name__=='__main__':
-    textPath, savePath = Parser()
+    textPath, savePath = ArgParser()
 
     # Reading templates 
     with open(textPath, 'r') as f:
@@ -43,5 +63,8 @@ if __name__=='__main__':
     count=0
     with open(savePath, mode) as out:
         for line in textData:
-            token = line.split()
-            
+            tokens = line.split()
+            repeats = 1 if tokens[0].replace("{", "").replace("}", "")=='' else tokens[0].replace("{", "").replace("}", "")
+            query=' '.join(tokens[1:])
+            for _ in range(int(repeats)):
+                
