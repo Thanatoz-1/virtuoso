@@ -2,6 +2,11 @@ from argparse import ArgumentParser
 import os
 from collections import defaultdict
 import random
+from spacy.tokenizer import Tokenizer
+from spacy.lang.en import English
+
+nlp = English()
+tokenizer = Tokenizer(nlp.vocab)
 
 class DataFetcher:
     def __init__(self):
@@ -9,17 +14,15 @@ class DataFetcher:
         self.tables=os.listdir(BASE)
         self._data = defaultdict(list)
         for file in self.items:
-            if '.txt' in file:
+            file_name, ext = os.path.splitext(file)
+            if ext=='.txt':
                 with open(os.path.join(BASE,file),'r') as f:
                     self.__data[file] = f.readlines()
 
         def getItem(self, filename):
             return random.choice(self.__data[filename])
 
-def StringParser():
-    def __init__(self):
-        pass
-
+target = DataFetcher()
 
 def ArgParser():
     '''
