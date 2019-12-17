@@ -1,7 +1,13 @@
 from argparse import ArgumentParser
 import os
+import re
 from collections import defaultdict
 import random
+from spacy.tokenizer import Tokenizer
+from spacy.lang.en import English
+
+nlp = English()
+tokenizer = Tokenizer(nlp.vocab)
 
 class DataFetcher:
     def __init__(self):
@@ -9,17 +15,31 @@ class DataFetcher:
         self.tables=os.listdir(BASE)
         self._data = defaultdict(list)
         for file in self.items:
-            if '.txt' in file:
+            file_name, ext = os.path.splitext(file)
+            if ext=='.txt':
                 with open(os.path.join(BASE,file),'r') as f:
                     self.__data[file] = f.readlines()
 
         def getItem(self, filename):
             return random.choice(self.__data[filename])
 
-def StringParser():
-    def __init__(self):
-        pass
+target = DataFetcher()
 
+def Extractor(keyword, null_token='O'):
+    if chr(91) not in keyword:
+        return (keyword, null_token)
+    e = re.sub('[^0-9a-zA-Z]+',' ', keyword).strip().split()
+    
+
+def process_string(query):
+    query=tokenizer(query.replace('\n',''))
+    repeatations=query[1]
+    query=query[3:]
+    sentence=[]
+    labels=[]
+    tables=[]
+    for token in query:
+                
 
 def ArgParser():
     '''
