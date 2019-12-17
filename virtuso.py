@@ -1,5 +1,6 @@
 from argparse import ArgumentParser
 import os
+import re
 from collections import defaultdict
 import random
 from spacy.tokenizer import Tokenizer
@@ -23,6 +24,22 @@ class DataFetcher:
             return random.choice(self.__data[filename])
 
 target = DataFetcher()
+
+def Extractor(keyword, null_token='O'):
+    if chr(91) not in keyword:
+        return (keyword, null_token)
+    e = re.sub('[^0-9a-zA-Z]+',' ', keyword).strip().split()
+    
+
+def process_string(query):
+    query=tokenizer(query.replace('\n',''))
+    repeatations=query[1]
+    query=query[3:]
+    sentence=[]
+    labels=[]
+    tables=[]
+    for token in query:
+                
 
 def ArgParser():
     '''
