@@ -1,1 +1,1 @@
-python virtuso.py template/input.txt generated/output.csv
+python3 ../virtuso.py template/input.txt generated/output.csv
