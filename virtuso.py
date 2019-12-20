@@ -13,15 +13,15 @@ class DataFetcher:
     def __init__(self):
         BASE='Data/'
         self.tables=os.listdir(BASE)
-        self._data = defaultdict(list)
-        for file in self.items:
+        self._data = defaultdict(lambda:[])
+        for file in self.tables:
             file_name, ext = os.path.splitext(file)
             if ext=='.txt':
                 with open(os.path.join(BASE,file),'r') as f:
-                    self.__data[file] = f.readlines()
-
-        def getItem(self, filename):
-            return random.choice(self.__data[filename])
+                    self._data[file_name] = f.readlines()
+        
+    def getItem(self, filename):
+        return random.choice(self._data[filename])
 
 target = DataFetcher()
 
@@ -39,7 +39,7 @@ def process_string(query):
     labels=[]
     tables=[]
     for token in query:
-                
+        pass
 
 def ArgParser():
     '''
@@ -87,4 +87,4 @@ if __name__=='__main__':
             repeats = 1 if tokens[0].replace("{", "").replace("}", "")=='' else tokens[0].replace("{", "").replace("}", "")
             query=' '.join(tokens[1:])
             for _ in range(int(repeats)):
-                
+                pass
