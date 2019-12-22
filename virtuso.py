@@ -21,25 +21,27 @@ class DataFetcher:
                     self._data[file_name] = f.readlines()
         
     def getItem(self, filename):
-        return random.choice(self._data[filename])
+        ret=random.choice(self._data[filename])
+        return ret
 
 target = DataFetcher()
 
 def Extractor(keyword, null_token='O'):
-    if chr(91) not in keyword:
+    if '[' not in str(keyword):
         return (keyword, null_token)
-    e = re.sub('[^0-9a-zA-Z]+',' ', keyword).strip().split()
-    
+    e = re.sub('[^0-9a-zA-Z]+',' ', str(keyword)).strip().split()
+    value=target.getItem(e[1]).split()
+    ret_tok=e[0]
+    ret=[(ent_tok, 'I-'+ret_tok) if ind>0 else (ent_tok, 'B-'+ret_tok) for ind, ent_tok in enumerate(value)]
+    return ret    
 
 def process_string(query):
     query=tokenizer(query.replace('\n',''))
-    repeatations=query[1]
-    query=query[3:]
     sentence=[]
     labels=[]
-    tables=[]
     for token in query:
-        pass
+        print('FROM EXTRACTED: ', Extractor(token))
+    print(labels)
 
 def ArgParser():
     '''
@@ -86,5 +88,7 @@ if __name__=='__main__':
             tokens = line.split()
             repeats = 1 if tokens[0].replace("{", "").replace("}", "")=='' else tokens[0].replace("{", "").replace("}", "")
             query=' '.join(tokens[1:])
+            print('Query: ',query)
+            res=[]
             for _ in range(int(repeats)):
-                pass
+                res.append(process_string(query))
