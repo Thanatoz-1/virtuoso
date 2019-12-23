@@ -3,11 +3,9 @@ import os
 import re
 from collections import defaultdict
 import random
-from spacy.tokenizer import Tokenizer
-from spacy.lang.en import English
+import spacy
 
-nlp = English()
-tokenizer = Tokenizer(nlp.vocab)
+nlp = spacy.load('en_core_web_sm')
 
 class DataFetcher:
     def __init__(self):
@@ -28,15 +26,16 @@ target = DataFetcher()
 
 def Extractor(keyword, null_token='O'):
     if '[' not in str(keyword):
-        return [(keyword, null_token)]
+        return [(tok.text, null_token) for tok in nlp(keyword)]
     e = re.sub('[^0-9a-zA-Z]+',' ', str(keyword)).strip().split()
     value=target.getItem(e[1]).split()
     ret_tok=e[0]
-    ret=[(ent_tok, 'I-'+ret_tok) if ind>0 else (ent_tok, 'B-'+ret_tok) for ind, ent_tok in enumerate(value)]
+    # [x for b in a for x in b]
+    ret=[(int_tok.text, ind, idx, 'I-'+ret_tok) if (ind+idx>0) else (int_tok.text, ind, idx, 'B-'+ret_tok) for ind, ent_tok in enumerate(value) for idx, int_tok in enumerate(nlp(ent_tok))]
     return ret
 
 def process_string(query):
-    query=tokenizer(query.replace('\n',''))
+    query=query.replace('\n','').split()
     sentence=[]
     labels=[]
     for token in query:
