@@ -28,20 +28,27 @@ target = DataFetcher()
 
 def Extractor(keyword, null_token='O'):
     if '[' not in str(keyword):
-        return (keyword, null_token)
+        return [(keyword, null_token)]
     e = re.sub('[^0-9a-zA-Z]+',' ', str(keyword)).strip().split()
     value=target.getItem(e[1]).split()
     ret_tok=e[0]
     ret=[(ent_tok, 'I-'+ret_tok) if ind>0 else (ent_tok, 'B-'+ret_tok) for ind, ent_tok in enumerate(value)]
-    return ret    
+    return ret
 
 def process_string(query):
     query=tokenizer(query.replace('\n',''))
     sentence=[]
     labels=[]
     for token in query:
-        print('FROM EXTRACTED: ', Extractor(token))
-    print(labels)
+        extracted=Extractor(token)
+        for ent in extracted:
+            sentence.append(ent[0])
+            labels.append(ent[1])
+    res=[]
+    for i,j in zip(sentence, labels):
+        res.append(str(i)+'###'+str(j))
+    return ' '.join(res)
+    
 
 def ArgParser():
     '''
@@ -88,7 +95,7 @@ if __name__=='__main__':
             tokens = line.split()
             repeats = 1 if tokens[0].replace("{", "").replace("}", "")=='' else tokens[0].replace("{", "").replace("}", "")
             query=' '.join(tokens[1:])
-            print('Query: ',query)
             res=[]
             for _ in range(int(repeats)):
                 res.append(process_string(query))
+            print(res)
