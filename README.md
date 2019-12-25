@@ -12,4 +12,4 @@ This is going to take a text file as an input having data arranged in the follow
 ```text
 {number_of_template_repeatations} Sentence with [variable_label:file_name]
 ```
-The variable_label_name will be the name you want to provide to the token. The script will handle the text accordingly and generate the output in the provided path name. In order to see an example yourself, switch to the [sample1](https://github.com/Thanatoz-1/virtuoso/tree/development) branch.
+The variable_label_name will be the name you want to provide to the token. The script will handle the text accordingly and generate the output in the provided path name. In order to see an example yourself, switch to the [sample1](https://github.com/Thanatoz-1/virtuoso/tree/sample1) branch.
