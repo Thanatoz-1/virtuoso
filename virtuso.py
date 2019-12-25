@@ -31,7 +31,7 @@ def Extractor(keyword, null_token='O'):
     value=target.getItem(e[1]).split()
     ret_tok=e[0]
     # [x for b in a for x in b]
-    ret=[(int_tok.text, ind, idx, 'I-'+ret_tok) if (ind+idx>0) else (int_tok.text, ind, idx, 'B-'+ret_tok) for ind, ent_tok in enumerate(value) for idx, int_tok in enumerate(nlp(ent_tok))]
+    ret=[(int_tok.text, 'I-'+ret_tok) if (ind+idx>0) else (int_tok.text, 'B-'+ret_tok) for ind, ent_tok in enumerate(value) for idx, int_tok in enumerate(nlp(ent_tok))]
     return ret
 
 def process_string(query):
@@ -97,4 +97,4 @@ if __name__=='__main__':
             res=[]
             for _ in range(int(repeats)):
                 res.append(process_string(query))
-            print(res)
+            out.write(res[0]+'\n')
