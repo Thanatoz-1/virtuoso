@@ -1,0 +1,10 @@
+{100} Play [Song:songs] from [Album:albums]
+{100} I want to hear the song [Song:songs]
+{100} Play song [Song:songs] by [Artist:singers]
+{100} Play song [Song:songs] by [Artist:singers] and [Artist:singers]
+{100} Play random songs by [Artist:singers]
+{100} I want to hear songs by [Artist:singers]
+{100} shuffle songs by [Artist:singers]
+{100} Play [Artist:singers] songs
+{100} Play songs by [Artist:singers]
+{100} Could you play [Album:albums]
